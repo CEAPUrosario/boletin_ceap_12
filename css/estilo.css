@@ -1,658 +1,1314 @@
-/* ─── RESET & BASE ─── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+@font-face { font-family: 'PP Neue Montreal'; src: url('https://raw.githubusercontent.com/CEAPUrosario/boletin_ceap/main/font/ppneuemontreal-book.otf') format('opentype'); font-weight: 400; }
+@font-face { font-family: 'PP Neue Montreal'; src: url('https://raw.githubusercontent.com/CEAPUrosario/boletin_ceap/main/font/ppneuemontreal-bold.otf') format('opentype'); font-weight: 700; }
 
 :root {
-  --yellow:  #fde87c;
-  --pink:    #ffb3c6;
-  --mint:    #b5f0d3;
-  --blue:    #a8d8f8;
-  --lavender:#d4c5f9;
-  --peach:   #ffc9a8;
-
-  --ink:     #1a1a2e;
-  --ink-mid: #3d3d5c;
-  --ink-soft:#7a7a9a;
-  --paper:   #faf9f6;
-  --white:   #ffffff;
-
-  --radius-sm: 4px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
-  --radius-xl: 32px;
-
-  --shadow-postit: 3px 4px 14px rgba(0,0,0,0.13);
-  --shadow-card:   0 2px 24px rgba(0,0,0,0.08);
+    --fixed-header-height: 110px;
+    --primary-color: #043959;
+    --secondary-color: #204959;
+    --light-accent: #F2E088;
+    --vibrant-accent: #F2B872;
+    --brown-divider: #735D49;
+    --nav-bg-tenue: rgba(242, 224, 136, 0.3);
 }
 
-html { scroll-behavior: smooth; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: "PP Neue Montreal", sans-serif; background-color: #ffffff; color: var(--primary-color); overflow-x: hidden; width: 100%; }
 
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--paper);
-  color: var(--ink);
-  overflow-x: hidden;
-}
-
-a { text-decoration: none; color: inherit; }
-
-/* ─── CONTAINER ─── */
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 24px;
-}
-
-/* ─── LOGO ─── */
-.logo-wrap {
-  position: absolute;
-  top: 24px; left: 32px;
-  z-index: 10;
-  display: block;
-  line-height: 0;
-}
-.logo-img {
-  height: 44px;
-  width: auto;
-  object-fit: contain;
-  opacity: 0.92;
-  transition: opacity 0.2s;
-}
-.logo-img:hover { opacity: 1; }
-
-/* ─── HERO ─── */
-.hero {
-  position: relative;
-  min-height: 92vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--ink);
-  overflow: hidden;
+/* HEADER BLUR */
+.header-blur-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 160px;
+    background: rgba(255, 255, 255, 0.9); 
+    backdrop-filter: blur(20px); 
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 1100;
+    border: none;
+    box-shadow: none;
+    pointer-events: none;
 }
 
-.hero-bg {
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 20% 50%, #2d2b55 0%, transparent 60%),
-              radial-gradient(ellipse at 80% 20%, #3b1f4a 0%, transparent 55%),
-              var(--ink);
+/* AJUSTE LOGO */
+.header-logo-fixed { position: fixed; top: 0; left: 0; width: auto; height: var(--fixed-header-height); z-index: 1200; display: flex; align-items: center; padding-left: 2rem; }
+.logo-img { width: 280px; height: auto; transition: 0.3s; }
+
+/* NAV CONTAINER: NAVEGACIÓN A LA DERECHA */
+.nav-container { 
+    width: 100%; 
+    position: fixed; 
+    top: 25px; 
+    left: 0; 
+    z-index: 2000; 
+    display: flex; 
+    justify-content: flex-end; 
+    padding-right: 60px;
 }
 
-/* decorative stars */
-.deco-star {
-  position: absolute;
-  font-size: 18px;
-  color: rgba(255,255,255,0.12);
-  animation: twinkle 3s ease-in-out infinite;
-}
-.s1 { top: 18%; left: 12%; animation-delay: 0s; font-size: 14px; }
-.s2 { top: 65%; left: 8%; animation-delay: 1.2s; font-size: 22px; }
-.s3 { top: 30%; right: 15%; animation-delay: 0.6s; font-size: 10px; }
+/* --- AJUSTE DE ESCALAMIENTO DEL MENÚ --- */
 
-@keyframes twinkle {
-  0%,100% { opacity: 0.15; transform: scale(1); }
-  50%      { opacity: 0.5; transform: scale(1.3); }
-}
-
-.deco-line {
-  position: absolute;
-  border-top: 1px solid rgba(255,255,255,0.06);
-}
-.l1 { width: 300px; top: 40%; left: -60px; transform: rotate(-20deg); }
-.l2 { width: 200px; bottom: 25%; right: -30px; transform: rotate(15deg); }
-
-.hero-inner {
-  position: relative; z-index: 2;
-  text-align: center;
-  padding: 2rem;
+.header-nav {  
+    display: flex;  
+    gap: 6px; /* Reducimos el espacio entre botones de 10px a 6px */
+    background: #E8F1F5; 
+    padding: 8px 15px; /* Reducimos el relleno lateral del contenedor */
+    border-radius: 50px;  
+    border: 1px solid rgba(4, 57, 89, 0.15); 
+    position: relative;  
+    align-items: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); 
+    z-index: 2000;
 }
 
-.hero-eyebrow {
-  font-family: 'Caveat', cursive;
-  font-size: 22px;
-  color: var(--yellow);
-  margin-bottom: 12px;
-  letter-spacing: 0.02em;
+.nav-btn { 
+    flex-shrink: 1; /* Permitimos que los botones se compriman un poco si es necesario */
+    white-space: nowrap; 
+    background: transparent; 
+    color: #043959 !important; 
+    border: none; 
+    
+    /* Reducimos el padding lateral (de 18px a 10px) para ganar mucho ancho */
+    padding: 8px 10px; 
+    
+    border-radius: 25px; 
+    font-weight: 700; 
+    
+    /* Reducimos la fuente de 0.9rem a 0.78rem (Escalamiento) */
+    font-size: 0.78rem; 
+    
+    cursor: pointer; 
+    transition: all 0.3s ease; 
+    position: relative; 
+    z-index: 2; 
+    display: flex; 
+    align-items: center; 
+    gap: 4px; 
 }
 
-.hero-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(56px, 9vw, 96px);
-  color: var(--white);
-  line-height: 1.05;
-  margin-bottom: 20px;
-}
-.hero-title em {
-  font-style: italic;
-  color: var(--yellow);
+/* --- RECUPERACIÓN DEL COLOR SELECCIONADO --- */
+
+/* Aseguramos que el indicador (el globo oscuro) tenga el tamaño correcto */
+.nav-indicator { 
+    position: absolute; 
+    height: 34px; /* Ajustado a la altura del botón */
+    background: #043959 !important; 
+    border-radius: 25px; 
+    top: 50%;
+    transform: translateY(-50%); /* Centrado vertical perfecto */
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); 
+    z-index: 1; 
 }
 
-.hero-sub {
-  font-size: 18px;
-  color: rgba(255,255,255,0.65);
-  font-weight: 300;
-  margin-bottom: 40px;
-  letter-spacing: 0.01em;
+/* El texto blanco cuando el botón está activo */
+.nav-btn.active { 
+    color: #ffffff !important; 
 }
 
-.hero-actions {
-  display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+/* Mantenemos el ajuste de proporciones para que nada se pise */
+main {  
+    padding-top: 210px;  
+    max-width: 1550px;  
+    margin: 0 auto;  
+    position: relative;  
+    padding-left: 100px;  
+    padding-right: 60px;  
+    width: 100%;  
 }
 
-/* ─── BUTTONS ─── */
-.btn {
-  display: inline-block;
-  padding: 13px 28px;
-  border-radius: var(--radius-xl);
-  font-size: 15px;
-  font-weight: 500;
-  transition: transform 0.15s, box-shadow 0.15s;
-  cursor: pointer;
-  border: none;
-  font-family: 'DM Sans', sans-serif;
-}
-.btn:hover { transform: translateY(-2px); }
-.btn:active { transform: scale(0.97); }
-
-.btn-primary {
-  background: var(--yellow);
-  color: var(--ink);
-  box-shadow: 0 4px 20px rgba(253,232,124,0.4);
-}
-.btn-primary:hover { box-shadow: 0 6px 28px rgba(253,232,124,0.55); }
-
-.btn-outline {
-  background: transparent;
-  color: var(--white);
-  border: 1.5px solid rgba(255,255,255,0.35);
-}
-.btn-outline:hover { background: rgba(255,255,255,0.08); }
-
-/* ─── FLOATING POST-ITS (hero decoration) ─── */
-.float-postit {
-  position: absolute;
-  font-family: 'Caveat', cursive;
-  font-size: 15px;
-  font-weight: 600;
-  padding: 10px 14px;
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-postit);
-  animation: floatY 5s ease-in-out infinite;
-  z-index: 2;
-}
-.fp1 {
-  background: var(--yellow); color: var(--ink);
-  top: 22%; right: 14%; transform: rotate(6deg);
-  animation-delay: 0s;
-}
-.fp2 {
-  background: var(--pink); color: var(--ink);
-  bottom: 28%; left: 10%; font-size: 22px;
-  transform: rotate(-8deg);
-  animation-delay: 1.5s;
-}
-.fp3 {
-  background: var(--mint); color: var(--ink);
-  top: 55%; right: 9%; transform: rotate(-4deg);
-  animation-delay: 3s;
-}
-@keyframes floatY {
-  0%,100% { transform: translateY(0) rotate(var(--r,4deg)); }
-  50%      { transform: translateY(-10px) rotate(var(--r,4deg)); }
-}
-.fp1 { --r: 6deg; }
-.fp2 { --r: -8deg; }
-.fp3 { --r: -4deg; }
-
-/* ─── SEARCH SECTION ─── */
-.search-section {
-  position: sticky; top: 0; z-index: 50;
-  background: rgba(250,249,246,0.92);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(0,0,0,0.07);
-  padding: 14px 0;
+.section { display: none; width: 100%; padding-bottom: 100px; }
+.section.active { 
+    display: flex !important; 
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px; /* Calle de separación entre tarjetas y calendario */
 }
 
-.search-wrap {
-  display: flex; align-items: center; gap: 10px;
-  max-width: 480px; margin: 0 auto;
-  background: var(--white);
-  border: 1.5px solid rgba(0,0,0,0.1);
-  border-radius: var(--radius-xl);
-  padding: 10px 18px;
-  color: var(--ink-soft);
-  transition: border-color 0.2s;
-}
-.search-wrap:focus-within {
-  border-color: #7a6bf0;
-  color: var(--ink);
-}
-.search-wrap input {
-  flex: 1; border: none; outline: none;
-  font-size: 15px; font-family: 'DM Sans', sans-serif;
-  background: transparent; color: var(--ink);
-}
-.search-wrap input::placeholder { color: var(--ink-soft); }
-
-/* ─── BOARD SECTION ─── */
-.board-section {
-  padding: 72px 0 80px;
+.fade-in-up { animation: fadeInUp 0.6s ease-out forwards; }
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-.section-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 36px;
-  color: var(--ink);
-  margin-bottom: 40px;
-  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
-}
-.tag-chip {
-  font-family: 'Caveat', cursive;
-  font-size: 20px;
-  font-weight: 600;
-  background: var(--yellow);
-  color: var(--ink);
-  padding: 2px 14px;
-  border-radius: var(--radius-xl);
-  transform: rotate(-1.5deg);
-  display: inline-block;
+.card-grid { 
+    display: grid !important; 
+    /* Cambiamos auto-fit por 4 para obligar la fila única */
+    grid-template-columns: repeat(4, 1fr) !important; 
+    gap: 25px; 
+    flex: 1;
+    width: 100%;
 }
 
-/* ─── BOARD (masonry-ish grid) ─── */
-.board {
-  columns: 3 280px;
-  column-gap: 22px;
+.feature-card { display: block; text-decoration: none; color: inherit; perspective: 1200px; }
+.card-inner-content { height: 340px; border-radius: 18px; overflow: hidden; position: relative; box-shadow: 0 15px 45px rgba(0,0,0,0.12); transform-style: preserve-3d; transition: transform 0.2s ease, box-shadow 0.3s ease; }
+.card-inner-content:hover { box-shadow: 0 25px 55px rgba(4, 57, 89, 0.2); }
+.card-image-wrapper { width: 100%; height: 100%; background-size: cover; background-position: center; transition: transform 0.8s ease; }
+.card-inner-content::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 75%; background: linear-gradient(to top, rgba(4, 57, 89, 0.95), transparent); z-index: 1; }
+.card-text-content { position: absolute; bottom: 0; width: 100%; padding: 1.8rem; color: white; z-index: 2; }
+.card-title { font-size: 1.6rem; line-height: 1.1; font-weight: 700; letter-spacing: -0.5px; }
+.card-glint { position: absolute; top: 0; left: -150%; width: 100%; height: 100%; background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent); z-index: 3; pointer-events: none; }
+.feature-card:hover .card-glint { left: 150%; transition: all 0.7s ease-in-out; }
+
+.events-sidebar-right { 
+    width: 270px; 
+    flex-shrink: 0; /* Evita que el calendario se encoja */
+    position: relative;
 }
 
-/* ─── POST-IT CARD ─── */
-.postit {
-  break-inside: avoid;
-  display: block;
-  margin-bottom: 22px;
-  padding: 20px 20px 24px;
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-postit);
-  position: relative;
-  cursor: default;
-  transition: transform 0.2s, box-shadow 0.2s;
-  animation: popIn 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
+.events-title { font-size: 1.4rem; color: var(--secondary-color); margin-bottom: 20px; font-weight: 900; }
+
+.modal-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(4, 57, 89, 0.7); display: none; align-items: center; justify-content: center; z-index: 5000; backdrop-filter: blur(8px); }
+.modal-backdrop.open { display: flex; }
+.modal { background: #fff; border-radius: 25px; transform: scale(0.9); opacity: 0; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.modal-backdrop.open .modal { transform: scale(1); opacity: 1; }
+.modal.modal-grande {
+    max-width: 1000px;
+    width: 95%;
+    padding: 30px 20px !important; 
+    position: relative;
+    overflow-y: auto;
+    max-height: 90vh;
 }
-.postit:hover {
-  transform: scale(1.03) rotate(0deg) !important;
-  box-shadow: 5px 8px 24px rgba(0,0,0,0.18);
-  z-index: 10;
-}
-@keyframes popIn {
-  from { opacity: 0; transform: scale(0.85) translateY(10px); }
-  to   { opacity: 1; }
+/* Botón de cerrar para los Modales */
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 25px; /* Mandamos a la derecha */
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: #888;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 5100;
+    transition: 0.3s;
+    line-height: 1;
 }
 
-/* tape effect at top */
-.postit::before {
-  content: '';
-  position: absolute;
-  top: -10px; left: 50%; transform: translateX(-50%);
-  width: 44px; height: 20px;
-  background: rgba(255,255,255,0.55);
-  border-radius: 2px;
+.close-modal:hover {
+    color: var(--primary-color);
+    transform: scale(1.1);
 }
 
-.postit-teacher {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 12px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--ink-mid);
-  margin-bottom: 8px;
-  opacity: 0.75;
-}
-.postit-subject {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 11px;
-  color: var(--ink-soft);
-  margin-bottom: 12px;
-}
-.postit-msg {
-  font-family: 'Caveat', cursive;
-  font-size: 19px;
-  font-weight: 600;
-  line-height: 1.45;
-  color: var(--ink);
-  margin-bottom: 16px;
-}
-.postit-from {
-  font-family: 'Caveat', cursive;
-  font-size: 15px;
-  color: var(--ink-mid);
-  opacity: 0.75;
-}
-.postit-from::before { content: '— '; }
+.btn-detail { background: #e9ecef; border: none; padding: 8px 15px; border-radius: 6px; font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: 0.3s; }
+.btn-enroll { background: var(--primary-color); color: white; border: none; padding: 8px 15px; border-radius: 6px; font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: 0.3s; }
 
-/* fold corner */
-.postit::after {
-  content: '';
-  position: absolute;
-  bottom: 0; right: 0;
-  width: 22px; height: 22px;
-  background: rgba(0,0,0,0.08);
-  clip-path: polygon(100% 0, 100% 100%, 0 100%);
-  border-radius: 0 0 var(--radius-sm) 0;
+.podcast-side-tab.transparent-tab { position: fixed; left: -415px; top: 50%; transform: translateY(-50%); width: 530px; z-index: 4000; display: flex; align-items: center; transition: left 0.6s ease; }
+.podcast-side-tab:hover { left: 0 !important; }
+.tab-content { width: 415px; background: #ffffff; padding: 30px; border-radius: 0 25px 25px 0; box-shadow: 15px 0 50px rgba(0,0,0,0.15); display: flex; flex-direction: column; gap: 20px; order: 1; }
+.tab-label { width: 85px; cursor: pointer; order: 2; padding-left: 10px; }
+.tab-label img { width: 100%; border-radius: 12px; }
+.listen-text { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 0.7rem; font-weight: 900; color: var(--primary-color); background: var(--light-accent); padding: 12px 5px; border-radius: 5px; }
+.icons-grid-five { display: flex; justify-content: space-between; align-items: center; padding: 0 10px; }
+.icons-grid-five img { width: 34px; height: 34px; }
+
+
+/* === NUEVO BOTÓN FLOTANTE ANIMADO (VERSIÓN ETA) === */
+.contact-fab { 
+    position: fixed; 
+    bottom: 35px; 
+    right: 35px; 
+    width: 110px; /* Tamaño ajustado para la nueva imagen */
+    height: 110px; 
+    background: transparent !important; /* Sin fondo circular */
+    border: none !important; /* Sin bordes */
+    cursor: pointer; 
+    z-index: 2100; 
+    overflow: visible; /* Para que la sombra no se corte */
+    padding: 0;
+    box-shadow: none !important; /* Quitamos la sombra del cuadro antiguo */
+    outline: none;
 }
 
-/* ─── EMPTY STATE ─── */
-.empty-state {
-  text-align: center;
-  padding: 3rem;
-  font-family: 'Caveat', cursive;
-  font-size: 22px;
-  color: var(--ink-soft);
+/* Efecto opcional: se agranda un poco al pasar el mouse */
+.contact-fab:hover .fab-mailing-icon {
+    transform: scale(1.1);
+    filter: drop-shadow(0 15px 25px rgba(4, 57, 89, 0.4));
 }
 
-/* ─── FORM SECTION ─── */
-.form-section {
-  background: var(--ink);
-  padding: 80px 0 100px;
-  position: relative;
-  overflow: hidden;
-}
-.form-section::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--yellow), var(--pink), var(--mint), var(--blue), var(--lavender));
-}
-
-.form-card {
-  max-width: 600px;
-  margin: 0 auto;
-  background: var(--paper);
-  border-radius: var(--radius-lg);
-  padding: 48px 48px 52px;
-  position: relative;
-  box-shadow: 0 24px 80px rgba(0,0,0,0.35);
-}
-.form-card-deco {
-  position: absolute;
-  top: -18px; left: 38px;
-  width: 60px; height: 26px;
-  background: rgba(255,255,255,0.45);
-  border-radius: 3px;
-  transform: rotate(-2deg);
+/* LÓGICA DE LEVITACIÓN CON ZUMBIDO (BUZZ) */
+@keyframes levitacionZumbido {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    40% { transform: translateY(-15px) rotate(0deg); } /* Sube normal */
+    
+    /* Inicio del Zumbido (Rápido) */
+    45% { transform: translateY(-15px) rotate(-3deg); }
+    47% { transform: translateY(-15px) rotate(3deg); }
+    49% { transform: translateY(-15px) rotate(-3deg); }
+    51% { transform: translateY(-15px) rotate(3deg); }
+    53% { transform: translateY(-15px) rotate(0deg); }
+    /* Fin del Zumbido */
+    
+    60% { transform: translateY(-15px); } /* Se queda un momento arriba */
 }
 
-.form-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 30px;
-  color: var(--ink);
-  margin-bottom: 6px;
+/* Aplicamos la animación a la imagen */
+.fab-mailing-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 15px rgba(4, 57, 89, 0.3));
+    animation: levitacionZumbido 4s ease-in-out infinite; /* 4 segundos para que no sea estresante */
 }
-.form-subtitle {
-  font-size: 14px;
-  color: var(--ink-soft);
-  margin-bottom: 32px;
-}
-
-.form-body { display: flex; flex-direction: column; gap: 20px; }
-
-.field label {
-  display: block;
-  font-size: 12px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--ink-mid);
-  margin-bottom: 7px;
-}
-.field input,
-.field select,
-.field textarea {
-  width: 100%;
-  padding: 12px 16px;
-  border: 1.5px solid rgba(0,0,0,0.12);
-  border-radius: var(--radius-md);
-  font-size: 15px;
-  font-family: 'DM Sans', sans-serif;
-  background: var(--white);
-  color: var(--ink);
-  outline: none;
-  transition: border-color 0.2s;
-  -webkit-appearance: none;
-}
-.field input:focus,
-.field select:focus,
-.field textarea:focus {
-  border-color: #7a6bf0;
-}
-.field textarea {
-  resize: vertical;
-  min-height: 100px;
-  font-family: 'Caveat', cursive;
-  font-size: 17px;
-  line-height: 1.6;
+.contact-fab:hover .fab-mailing-icon {
+    animation: buzzMouse 0.3s linear infinite; /* Zumbido rápido al tocarlo */
 }
 
-/* color swatches */
-.color-swatches {
-  display: flex; gap: 10px; flex-wrap: wrap;
-}
-.swatch {
-  width: 32px; height: 32px;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  border: 3px solid transparent;
-  transition: transform 0.15s, border-color 0.15s;
-  box-shadow: 2px 2px 6px rgba(0,0,0,0.12);
-}
-.swatch:hover { transform: scale(1.15); }
-.swatch.active { border-color: var(--ink); transform: scale(1.12); }
-
-.btn-send {
-  background: var(--ink);
-  color: var(--white);
-  padding: 15px 28px;
-  border-radius: var(--radius-xl);
-  font-size: 15px;
-  font-weight: 500;
-  cursor: pointer;
-  border: none;
-  font-family: 'DM Sans', sans-serif;
-  transition: transform 0.15s, background 0.2s;
-  align-self: flex-start;
-}
-.btn-send:hover { background: #2d2b55; transform: translateY(-2px); }
-.btn-send:active { transform: scale(0.97); }
-
-/* ─── FOOTER ─── */
-.site-footer {
-  background: var(--ink);
-  border-top: 1px solid rgba(255,255,255,0.07);
-  text-align: center;
-  padding: 24px;
-  font-size: 13px;
-  color: rgba(255,255,255,0.35);
+@keyframes buzzMouse {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    20% { transform: translate(-1px, -2px) rotate(-1deg); }
+    40% { transform: translate(-3px, 0px) rotate(1deg); }
+    60% { transform: translate(3px, 2px) rotate(0deg); }
+    80% { transform: translate(1px, -1px) rotate(1deg); }
+    100% { transform: translate(-1px, 2px) rotate(-1deg); }
 }
 
-/* ─── TOAST ─── */
-.toast {
-  position: fixed; bottom: 28px; left: 50%;
-  transform: translateX(-50%) translateY(10px);
-  background: var(--ink);
-  color: var(--white);
-  padding: 12px 24px;
-  border-radius: var(--radius-xl);
-  font-size: 14px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s, transform 0.3s;
-  white-space: nowrap;
-  z-index: 999;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-}
-.toast.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
+.side-panel { position: fixed; top: 0; right: -100%; width: 55%; height: 100%; background: #ffffff; border-left: 6px solid var(--vibrant-accent); transition: right 0.5s; padding: 50px 40px; z-index: 4500; box-shadow: -15px 0 40px rgba(0,0,0,0.2); overflow-y: auto; opacity: 0; pointer-events: none; }
+.side-panel.active { right: 0; opacity: 1; pointer-events: auto; }
+/* Botón de cerrar para el Panel Lateral */
+.close-side-panel {
+    position: absolute;
+    top: 20px;
+    right: 20px; /* Esquina superior derecha */
+    background: transparent;
+    border: none;
+    font-size: 2.2rem;
+    cursor: pointer;
+    color: var(--primary-color);
+    z-index: 5000;
+    transition: 0.3s;
 }
 
-/* ─── RESPONSIVE ─── */
-@media (max-width: 640px) {
-  .hero-title { font-size: 48px; }
-  .board { columns: 1; }
-  .form-card { padding: 32px 24px 36px; }
-  .float-postit { display: none; }
+.close-side-panel:hover {
+    transform: rotate(90deg); /* Efecto visual de cierre */
+    color: var(--vibrant-accent);
 }
 
-/* ─── HEART BUTTON ─── */
-.postit-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 10px;
-  padding-top: 8px;
-  border-top: 1px solid rgba(0,0,0,0.08);
-}
-.heart-btn {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 13px;
-  color: var(--ink-mid);
-  padding: 3px 6px;
-  border-radius: 20px;
-  transition: background 0.15s, transform 0.15s;
-}
-.heart-btn:hover { background: rgba(0,0,0,0.07); }
-.heart-btn:active { transform: scale(0.92); }
-.heart-btn.liked { color: #e2687a; }
-.heart-icon {
-  font-size: 16px;
-  line-height: 1;
-  transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
-  display: inline-block;
-}
-.heart-btn.liked .heart-icon { transform: scale(1.25); }
-.heart-count { font-weight: 500; min-width: 12px; }
+.magazine-layout { max-width: 1200px; margin: 0 auto; }
+.magazine-title { font-size: 2.8rem; color: var(--primary-color); margin-bottom: 35px; font-weight: 700; border-bottom: 5px solid var(--vibrant-accent); display: inline-block; }
 
-/* ─── LOADING BOARD ─── */
-.loading-board {
-  font-family: 'Caveat', cursive;
-  font-size: 22px;
-  color: var(--ink-soft);
-  text-align: center;
-  padding: 3rem;
-  grid-column: 1 / -1;
+/* ============================================================
+   REFINAMIENTO ESTÉTICO FINAL (ESTILO IMAGEN 2)
+   ============================================================ */
+
+/* 1. Alineamos todo arriba (como estaba antes) */
+.magazine-grid {
+    display: grid !important;
+    grid-template-columns: 1.2fr 0.8fr !important;
+    gap: 50px !important;
+    align-items: flex-start !important; /* Alineación superior total */
 }
 
-/* ─── FORM NOTE ─── */
-.form-note {
-  font-size: 13px;
-  color: var(--ink-soft);
-  text-align: center;
-  margin-top: -8px;
+/* 2. El texto fluye natural desde arriba (Sin rellenos raros) */
+.magazine-text {
+    display: block !important; /* Volvemos al bloque estándar */
+    height: auto !important; 
+    min-height: 0 !important; /* Quitamos la altura mínima forzada */
 }
 
-/* ─── ADMIN PAGE ─── */
-.admin-body { background: #0f0f1a; min-height: 100vh; font-family: 'DM Sans', sans-serif; color: #fff; }
-.admin-login {
-  min-height: 100vh; display: flex; align-items: center; justify-content: center;
-}
-.admin-login-card {
-  background: #1a1a2e; border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 16px; padding: 40px; width: 100%; max-width: 380px; text-align: center;
-}
-.admin-login-card h2 { font-family: 'Playfair Display', serif; font-size: 26px; margin-bottom: 6px; }
-.admin-login-card p  { font-size: 13px; color: rgba(255,255,255,0.45); margin-bottom: 24px; }
-.admin-login-card input {
-  width: 100%; padding: 12px 16px; border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.07);
-  color: #fff; font-size: 15px; font-family: 'DM Sans', sans-serif;
-  outline: none; margin-bottom: 14px; text-align: center; letter-spacing: 0.1em;
-}
-.admin-login-card button {
-  width: 100%; padding: 12px; background: #fde87c; color: #1a1a2e;
-  border: none; border-radius: 10px; font-size: 15px; font-weight: 600;
-  cursor: pointer; font-family: 'DM Sans', sans-serif;
-}
-.admin-header {
-  background: #1a1a2e; padding: 18px 32px;
-  display: flex; align-items: center; justify-content: space-between;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-}
-.admin-header h1 { font-family: 'Playfair Display', serif; font-size: 20px; }
-.admin-header span { font-size: 13px; color: rgba(255,255,255,0.4); }
-.admin-content { max-width: 900px; margin: 0 auto; padding: 32px 24px; }
-.admin-tabs { display: flex; gap: 10px; margin-bottom: 28px; }
-.admin-tab {
-  padding: 8px 20px; border-radius: 20px; font-size: 13px; font-weight: 500;
-  cursor: pointer; border: 1px solid rgba(255,255,255,0.15);
-  background: transparent; color: rgba(255,255,255,0.6); font-family: 'DM Sans', sans-serif;
-  transition: all 0.2s;
-}
-.admin-tab.active { background: #fde87c; color: #1a1a2e; border-color: #fde87c; }
-.pending-card {
-  background: #1a1a2e; border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 14px; padding: 20px 24px; margin-bottom: 14px;
-  display: flex; gap: 20px; align-items: flex-start;
-}
-.pending-card-body { flex: 1; }
-.pending-profe { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: #fde87c; margin-bottom: 4px; font-weight: 500; }
-.pending-texto { font-family: 'Caveat', cursive; font-size: 18px; line-height: 1.5; margin-bottom: 6px; }
-.pending-desde { font-size: 12px; color: rgba(255,255,255,0.4); }
-.pending-actions { display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
-.btn-approve {
-  padding: 8px 18px; background: #b5f0d3; color: #0f3d2a;
-  border: none; border-radius: 8px; font-size: 13px; font-weight: 600;
-  cursor: pointer; font-family: 'DM Sans', sans-serif; white-space: nowrap;
-}
-.btn-reject {
-  padding: 8px 18px; background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.5);
-  border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; font-size: 13px;
-  cursor: pointer; font-family: 'DM Sans', sans-serif; white-space: nowrap;
-}
-.btn-approve:hover { background: #8fe8be; }
-.btn-reject:hover  { background: rgba(255,80,80,0.15); color: #ff8080; border-color: #ff8080; }
-.admin-empty { text-align: center; padding: 3rem; color: rgba(255,255,255,0.3); font-size: 15px; }
-.color-dot {
-  width: 14px; height: 14px; border-radius: 3px; display: inline-block;
-  margin-right: 6px; vertical-align: middle; flex-shrink: 0; margin-top: 3px;
+.magazine-text p {
+    font-size: 1.1rem !important;
+    line-height: 1.8 !important;
+    color: #333 !important;
+    margin-bottom: 15px !important; /* Espacio natural entre párrafos */
+    text-align: justify !important;
 }
 
-/* ─── PANTALLA (modo proyección) ─── */
-.pantalla-body {
-  background: #0f0f1a; min-height: 100vh;
-  font-family: 'DM Sans', sans-serif;
+/* 3. La imagen y el video mantienen su proporción elegante */
+.magazine-image {
+    display: block !important;
+    width: 100% !important;
 }
-.pantalla-header {
-  text-align: center; padding: 28px 24px 0;
-  position: relative;
+
+.magazine-image img, 
+.magazine-image .video-wrapper {
+    width: 100% !important;
+    height: auto !important; /* Proporción natural */
+    max-height: 420px !important; /* Límite para que no sea gigante */
+    object-fit: cover !important;
+    border-radius: 15px !important;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1) !important;
 }
-.pantalla-logo { height: 36px; opacity: 0.7; margin-bottom: 12px; }
-.pantalla-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(28px, 4vw, 48px);
-  color: #fff; margin-bottom: 4px;
+
+/* 4. Botones con espacio moderado (no al fondo del todo si no es necesario) */
+.magazine-text div:has(.btn-boletin),
+.apreciacion-buttons {
+    display: flex !important;
+    gap: 15px !important;
+    flex-wrap: wrap !important;
+    margin-top: 25px !important; /* Espacio fijo respecto al último párrafo */
+    padding-top: 0 !important;
 }
-.pantalla-title em { color: #fde87c; font-style: italic; }
-.pantalla-sub { font-size: 14px; color: rgba(255,255,255,0.4); margin-bottom: 24px; }
-.pantalla-board {
-  columns: 4 220px; column-gap: 18px;
-  padding: 24px 32px 40px;
-  max-width: 1400px; margin: 0 auto;
+
+/* Unificamos el comportamiento de las imágenes del layout */
+.magazine-image { 
+    width: 100%; 
+    height: auto; 
+    display: flex; 
 }
-.pantalla-board .postit { margin-bottom: 18px; }
-.pantalla-empty {
-  text-align: center; padding: 4rem;
-  font-family: 'Caveat', cursive; font-size: 24px;
-  color: rgba(255,255,255,0.3);
+
+.magazine-image img { 
+    width: 100%; 
+    height: auto; 
+    max-height: 420px; 
+    object-fit: cover; 
+    border-radius: 15px; 
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1); 
 }
-.pantalla-badge {
-  position: fixed; bottom: 20px; right: 24px;
-  background: rgba(255,255,255,0.08); backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 20px; padding: 6px 14px;
-  font-size: 12px; color: rgba(255,255,255,0.4);
+
+/* REGLA MAESTRA PARA VIDEO RESPONSIVO */
+.video-wrapper {
+    width: 100%;
+    position: relative;
+    padding-bottom: 56.25%; /* Relación 16:9 */
+    height: 0;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
 }
-.pantalla-badge span { color: #fde87c; font-weight: 600; }
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: none;
+}
+
+.main-footer { background-color: var(--primary-color); color: #ffffff; padding: 40px 0 20px 0; margin-top: 10px; width: 100%; }
+.footer-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 40px; }
+.footer-logo { width: 240px; filter: brightness(0) invert(1); }
+.footer-nav-links a { color: var(--vibrant-accent); text-decoration: none; font-size: 0.85rem; font-weight: 700; }
+.footer-social-links { display: flex; gap: 15px; align-items: center; }
+.footer-icon { width: 25px; height: 25px; object-fit: contain; filter: brightness(0) invert(1); transition: transform 0.3s ease, opacity 0.3s ease; opacity: 0.9; }
+.footer-icon:hover { transform: translateY(-3px); opacity: 1; }
+.footer-bottom { width: 100%; text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.8rem; opacity: 0.8; }
+
+.card-info-below { margin-top: 18px; }
+.card-category { font-size: 0.75rem; font-weight: 900; text-transform: uppercase; color: var(--vibrant-accent); display: block; margin-bottom: 4px; letter-spacing: 0.5px; }
+.card-summary { font-size: 0.85rem; line-height: 1.3; color: #666; font-weight: 400; }
+
+.acordeon-item { border-bottom: 1px solid #eee; margin-bottom: 5px; }
+
+/* ESTE ES EL CAMBIO PRINCIPAL */
+.acordeon-header { 
+    width: 100%; 
+    padding: 15px; 
+    background: #f8f9fa; 
+    border: none; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    text-align: left;    /* <--- Fuerza el texto a la izquierda */
+    gap: 12px;           /* <--- Espacio entre el emoji y el texto */
+    cursor: pointer; 
+    font-weight: 700; 
+    color: var(--primary-color); 
+    border-radius: 8px; 
+    transition: 0.3s; 
+    line-height: 1.3;    /* <--- Mejora el espacio entre líneas si el título es largo */
+}
+
+.acordeon-header::after { content: '▼'; font-size: 0.7rem; transition: transform 0.3s; flex-shrink: 0; }
+.acordeon-header.active::after { transform: rotate(180deg); }
+.acordeon-content { background: #ffffff; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-in-out; }
+.acordeon-content.open { max-height: 600px; overflow-y: auto; }
+.course-row-sidebar { transition: all 0.3s ease; border-bottom: 1px solid #f5f5f5; position: relative; }
+.course-row-sidebar:hover { padding-left: 5px; border-left: 2px solid var(--vibrant-accent); }
+.pulse-icon { display: inline-block; animation: calendarBounce 2s infinite ease-in-out; font-size: 1.2rem; }
+@keyframes calendarBounce { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-5px) rotate(5deg); } }
+
+.nav-arrows-container { display: flex; justify-content: space-between; margin-top: 50px; padding-top: 30px; border-top: 1px solid #eee; gap: 20px; }
+.arrow-btn { padding: 12px 25px; border-radius: 12px; border: 2px solid var(--primary-color); background: transparent; color: var(--primary-color); font-weight: 700; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 10px; text-decoration: none; font-size: 0.9rem; }
+.arrow-btn:hover { background: var(--primary-color); color: white; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(4, 57, 89, 0.2); }
+.arrow-btn.next { background: var(--primary-color); color: white; margin-left: auto; }
+
+.hamburger-menu {
+  display: none; position: fixed; top: 20px; right: 20px; width: 35px; height: 25px;
+  background: transparent; border: none; cursor: pointer; z-index: 3000;
+  flex-direction: column; justify-content: space-between;
+}
+.hamburger-menu div { width: 100%; height: 4px; background: var(--primary-color); border-radius: 4px; transition: 0.3s; }
+.hamburger-menu.open .bar1 { transform: rotate(-45deg) translate(-7px, 5px); }
+.hamburger-menu.open .bar2 { opacity: 0; }
+.hamburger-menu.open .bar3 { transform: rotate(45deg) translate(-8px, -7px); }
+
+@media (max-width: 1024px) {
+    .card-grid { width: 100%; grid-template-columns: repeat(2, 1fr); }
+    .events-sidebar-right { position: static; width: 100%; margin-top: 40px; }
+}
+
+@media (max-width: 768px) {
+    /* Mantenemos tus básicos */
+    .hamburger-menu { display: flex; }
+    .header-logo-fixed { width: 100%; justify-content: flex-start; padding-left: 1.5rem; height: 80px; top: 0; }
+    .logo-img { width: 180px; }
+    
+    /* OPTIMIZACIÓN: Quitamos el blur para que no se trabe al cargar */
+    .header-blur-bg { 
+        height: 90px; 
+        backdrop-filter: none !important; 
+        -webkit-backdrop-filter: none !important;
+        background: rgba(255, 255, 255, 0.98) !important; 
+    }
+
+    /* NAV-CONTAINER: Ahora más ancho (85%) y alineado arriba */
+    .nav-container { 
+        position: fixed; top: 0; left: -100%; width: 85%; height: 100vh; 
+        background: white; z-index: 3400; transition: left 0.4s ease; 
+        display: flex; flex-direction: column; padding: 80px 25px; 
+        justify-content: flex-start; align-items: flex-start;
+        box-shadow: 10px 0 30px rgba(0,0,0,0.2);
+    }
+    .nav-container.open { left: 0; }
+    
+    /* HEADER-NAV: Botones en lista vertical con espacio para el dedo */
+    .header-nav { 
+        flex-direction: column !important; background: transparent !important; 
+        border: none !important; gap: 10px !important; width: 100% !important; 
+        padding: 0 !important;
+    }
+    .nav-btn { 
+        font-size: 1.1rem !important; width: 100% !important; text-align: left !important; 
+        padding: 15px 0 !important; border-bottom: 1px solid rgba(0,0,0,0.05); 
+        color: var(--primary-color) !important;
+    }
+    .nav-indicator { display: none; }
+
+    /* MAIN Y SECCIONES: Evitamos que el contenido se vea apretado */
+    main { padding-top: 100px; padding-left: 20px; padding-right: 20px; width: 100%; }
+    .section.active { display: block !important; }
+    
+    /* GRID DE TARJETAS: Una sola columna */
+    .card-grid { grid-template-columns: 1fr !important; width: 100% !important; margin: 0; }
+    .card-inner-content { height: 260px !important; }
+
+    /* DISEÑO MAGAZINE: Imagen ARRIBA y texto ABAJO (Para que no se aprete) */
+    .magazine-grid { display: flex !important; flex-direction: column !important; gap: 20px !important; }
+    .magazine-image { order: -1; width: 100% !important; }
+    .magazine-text { width: 100% !important; padding: 0 !important; }
+    .magazine-text p { text-align: left !important; font-size: 1rem !important; }
+
+    /* PODCAST: Pasa de ser una pestaña lateral a un bloque al final */
+    .podcast-side-tab.transparent-tab {
+        position: relative !important; left: 0 !important; top: 0 !important;
+        transform: none !important; width: 100% !important; margin: 40px 0;
+    }
+    .tab-label { display: none !important; } 
+    .tab-content { width: 100% !important; border-radius: 20px !important; box-shadow: none !important; border: 1px solid #eee; }
+
+    /* BOTÓN CORREO: Ahora sí queda FIJO en la esquina */
+    .contact-fab {
+        position: fixed !important; bottom: 20px !important; right: 20px !important;
+        width: 85px !important; height: 85px !important; z-index: 9999 !important;
+    }
+
+    /* TUS PANELES LATERALES (Se mantienen como los tenías) */
+    .events-sidebar-right { position: static; width: 100%; margin-top: 20px; order: 2; padding: 0; }
+    .side-panel { width: 100% !important; height: 85vh !important; top: auto !important; bottom: -100% !important; right: 0 !important; left: 0 !important; border-left: none !important; border-top: 6px solid var(--vibrant-accent); border-radius: 25px 25px 0 0; position: fixed !important; transition: bottom 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important; z-index: 5500 !important; padding: 40px 20px; opacity: 1 !important; pointer-events: auto !important; }
+    .side-panel.active { bottom: 0 !important; }
+    
+    /* AJUSTE MODO OSCURO MÓVIL */
+    body.dark-mode .nav-container, 
+    body.dark-mode .header-blur-bg { background-color: #021a29 !important; }
+}
+/* Botón de cerrar para el Panel Lateral */
+.close-side-panel {
+}
+@media (max-width: 768px) {
+
+    .footer-container {
+        flex-direction: column !important; /* Apila verticalmente */
+        align-items: flex-start !important; /* Alinea todo a la izquierda */
+        padding: 0 25px !important;
+        gap: 30px;
+    }
+
+    .footer-content-right {
+        align-items: flex-start !important; /* Links y redes a la izquierda */
+        text-align: left !important;
+        width: 100%;
+    }
+
+    .footer-nav-links {
+        display: flex;
+        flex-direction: column; /* Links uno debajo de otro */
+        gap: 15px;
+    }
+
+    .footer-sep { display: none; } /* Quitamos la rayita separadora | */
+
+    .footer-logo {
+        width: 200px; /* Un poco más pequeño para móvil */
+    }
+
+    .footer-social-links {
+        justify-content: flex-start !important;
+        margin-top: 10px;
+    }
+}
+
+/* REGLA MAESTRA PARA QUE TODAS LAS "X" QUEDEN A LA DERECHA */
+.close-modal, .close-side-panel, .close-btn {
+    position: absolute !important;
+    top: 15px !important;
+    right: 15px !important;
+    left: auto !important; 
+    font-size: 2.2rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 6000;
+    line-height: 1;
+    display: block !important;
+}
+/* ============================================================
+   ZETA & ACCESIBILIDAD - VERSIÓN ETA
+   ============================================================ */
+
+:root {
+    --bg-color: #ffffff;
+    --text-color: #043959;
+    --card-bg: #ffffff;
+    /* Eliminamos la variable antigua de nav-bg para usar los nuevos colores sólidos */
+}
+
+body.dark-mode {
+    --bg-color: #021a29; 
+    --text-color: #e0e0e0;
+    --card-bg: #032539;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+/* --- AJUSTES MODO OSCURO (MENÚ Y TEXTOS) --- */
+body.dark-mode .header-nav {
+    background: #032539 !important; /* Azul profundo */
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .nav-btn {
+    color: #ffffff !important;
+}
+
+body.dark-mode .nav-indicator {
+    background: #F2B872 !important; /* Indicador naranja en modo oscuro */
+}
+
+body.dark-mode .nav-btn.active {
+    color: #043959 !important; /* Texto oscuro sobre el naranja */
+}
+
+/* --- COLORES DE TÍTULOS Y PÁRRAFOS EN MODO OSCURO --- */
+body.dark-mode h2, 
+body.dark-mode h3, 
+body.dark-mode h4, 
+body.dark-mode .magazine-title, 
+body.dark-mode .events-title, 
+body.dark-mode .footer-podcast-side p, 
+body.dark-mode #sidePanelContent h4, 
+body.dark-mode #sidePanelContent p, 
+body.dark-mode #sidePanelContent strong,
+body.dark-mode #criterium .magazine-text p { 
+    color: #ffffff !important; 
+}
+
+/* --- BLOQUE ACTUALIZADO DE MODO OSCURO --- */
+body.dark-mode .header-blur-bg { background: rgba(2, 26, 41, 0.9); }
+
+/* Ajuste del Podcast (tab-content), Modales y Paneles */
+body.dark-mode .tab-content, 
+body.dark-mode .modal, 
+body.dark-mode .side-panel { 
+    background-color: var(--card-bg) !important; 
+    color: var(--text-color); 
+}
+body.dark-mode .close-modal, 
+body.dark-mode .close-side-panel { 
+    color: #ffffff !important; 
+}
+
+/* Sombra Pro para que el reproductor rojo resalte en la noche */
+body.dark-mode .podcast-side-tab .tab-content {
+    box-shadow: -10px 0 30px rgba(0,0,0,0.4);
+    border-left: 1px solid rgba(255,255,255,0.05);
+}
+
+/* Forzar textos blancos en Títulos y párrafos de Critérium/Revista */
+body.dark-mode h2, body.dark-mode h3, body.dark-mode h4, 
+body.dark-mode .magazine-title, body.dark-mode .events-title, 
+body.dark-mode .magazine-text p, body.dark-mode #criterium .magazine-text p { 
+    color: #ffffff !important; 
+}
+
+body.dark-mode .card-summary { color: #b0b0b0; }
+body.dark-mode .acordeon-header { background: #043959; color: white; }
+body.dark-mode .listen-text, body.dark-mode .tab-label { background: var(--primary-color) !important; color: #ffffff !important; }
+body.dark-mode #increaseText span, body.dark-mode #decreaseText span { color: #ffffff; }
+
+/* --- CONTROLES ZETA --- */
+.zeta-controls { display: flex; gap: 5px; margin-left: 15px; padding-left: 15px; border-left: 1px solid rgba(4, 57, 89, 0.2); align-items: center; }
+.zeta-control-btn { background: transparent; border: none; cursor: pointer; font-size: 1.2rem; transition: transform 0.2s ease; padding: 5px; display: flex; align-items: center; }
+.zeta-control-btn:hover { transform: scale(1.2); }
+
+#searchBarContainer { position: absolute; top: 70px; right: 60px; left: auto; transform: none; width: 400px; background: var(--bg-color); padding: 15px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); display: flex; gap: 10px; z-index: 3000; transition: all 0.3s ease; border: 2px solid var(--vibrant-accent); }
+.search-bar-hidden { opacity: 0; visibility: hidden; top: 50px !important; }
+
+#searchInput { flex: 1; padding: 10px 15px; border-radius: 10px; border: 1px solid #ddd; outline: none; font-family: inherit; }
+#closeSearch { 
+    background: transparent; 
+    border: none; 
+    font-size: 1.5rem; 
+    cursor: pointer; 
+    color: var(--primary-color); 
+    order: 3; /* Asegura que quede al final del contenedor flex (derecha) */
+}
+
+/* --- EFECTOS Y UTILIDADES --- */
+.skeleton-loader { width: 100%; height: 60px; background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: skeleton-pulse 1.5s infinite; border-radius: 8px; margin-bottom: 10px; }
+@keyframes skeleton-pulse { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+body.dark-mode .skeleton-loader { background: linear-gradient(90deg, #043959 25%, #064d7a 50%, #043959 75%); }
+body { transition: background-color 0.5s ease, color 0.5s ease !important; }
+
+.zeta-control-btn::after { content: attr(title); position: absolute; bottom: -35px; left: 50%; transform: translateX(-50%); background: var(--primary-color); color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.7rem; white-space: nowrap; opacity: 0; pointer-events: none; transition: 0.2s; }
+.zeta-control-btn:hover::after { opacity: 1; }
+
+.copy-toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: var(--vibrant-accent); color: var(--primary-color); padding: 10px 20px; border-radius: 25px; font-weight: 700; font-size: 0.9rem; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 5500; animation: fadeInOut 2s forwards; }
+@keyframes fadeInOut { 0% { opacity: 0; transform: translate(-50%, 20px); } 20% { opacity: 1; transform: translate(-50%, 0); } 80% { opacity: 1; } 100% { opacity: 0; } }
+
+/* --- ACCESIBILIDAD TEXTO --- */
+html { font-size: 16px; transition: font-size 0.2s ease-in-out; }
+html.font-sm { font-size: 14px; }
+html.font-md { font-size: 16px; }
+html.font-lg { font-size: 19px; }
+html.font-xl { font-size: 22px; }
+
+#increaseText span, #decreaseText span { font-weight: 700; font-size: 0.9rem; color: var(--primary-color); }
+
+/* --- NUEVA CLASE PARA UNIFICAR BOTONES --- */
+/* --- NUEVA CLASE PARA UNIFICAR BOTONES --- */
+.btn-boletin {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 25px;
+    border-radius: 12px;
+    font-weight: 550 !important;
+    font-size: 0.95rem;
+    text-decoration: none !important;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    color: white !important;
+    width: fit-content !important; 
+    white-space: nowrap !important;
+}
+
+.btn-boletin:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    filter: brightness(1.1);
+}
+
+/* COLORES POR SECCIÓN */
+.btn-recursos { background-color: #F2B872 !important; } /* Naranja */
+.btn-evaluacion { background-color: #043959 !important; } /* Azul Oscuro */
+.btn-criterium { background-color: #204959 !important; } /* Azul Medio */
+.btn-ia { background-color: #27ae60 !important; } /* Verde */
+
+/* --- ALTO CONTRASTE UNIFICADO (IMÁGENES + BLINDAJE TOTAL) --- */
+
+/* 1. Base y Textos */
+body.high-contrast { 
+    background-color: #000000 !important; 
+    color: #ffff00 !important; 
+}
+
+body.high-contrast h1, 
+body.high-contrast h2, 
+body.high-contrast h3, 
+body.high-contrast h4, 
+body.high-contrast p, 
+body.high-contrast span, 
+body.high-contrast a,
+body.high-contrast strong { 
+    color: #ffff00 !important; 
+    text-shadow: none !important; 
+}
+
+/* 2. REGLA MAESTRA DE IMÁGENES: PROTECCIÓN TOTAL */
+body.high-contrast .card-image-wrapper {
+    background-image: inherit !important; 
+    background-color: transparent !important; 
+    filter: grayscale(1) brightness(0.7) contrast(1.2) !important; 
+    opacity: 1 !important;
+    display: block !important;
+    visibility: visible !important;
+    /* REFUERZOS CLAVE: */
+    position: relative !important;
+    z-index: 5 !important;
+}
+
+/* Estabilización de la tarjeta - Aseguramos que el fondo negro no tape la imagen */
+body.high-contrast .card-inner-content { 
+    background-color: #000000 !important; /* Cambiado 'background' por 'background-color' */
+    border: 3px solid #ffff00 !important; 
+    overflow: hidden !important;
+    position: relative !important;
+}
+
+/* 3. BLINDAJE DE POP-UPS, MODALES Y PANELES */
+body.high-contrast .modal, 
+body.high-contrast .modal-grande,
+body.high-contrast .side-panel,
+body.high-contrast .modal-backdrop,
+body.high-contrast #modalBodyText,
+body.high-contrast #sidePanelContent {
+    background-color: #000000 !important;
+    border: 3px solid #ffff00 !important;
+    color: #ffff00 !important;
+}
+
+/* 4. BLINDAJE DE CALENDARIO Y ACORDEONES */
+body.high-contrast .acordeon-header,
+body.high-contrast .acordeon-content,
+body.high-contrast .course-row-sidebar,
+body.high-contrast .acordeon-sidebar {
+    background-color: #000000 !important;
+    border: 1px solid #ffff00 !important;
+}
+
+/* 5. BLINDAJE DE PODCAST */
+body.high-contrast .tab-content,
+body.high-contrast .podcast-side-tab,
+body.high-contrast .listen-text,
+body.high-contrast .tab-label {
+    background-color: #000000 !important;
+    border: 2px solid #ffff00 !important;
+}
+
+/* 6. REFUERZO DE TODOS LOS BOTONES (Incluyendo Critérium, IA y Footer) */
+body.high-contrast button,
+body.high-contrast .btn-enroll,
+body.high-contrast .btn-detail,
+body.high-contrast .close-modal,
+body.high-contrast .close-side-panel,
+body.high-contrast .close-btn,
+body.high-contrast .btn-apreciacion,
+body.high-contrast .btn-criterium-azul,
+body.high-contrast .arrow-btn {
+    background-color: #000000 !important;
+    color: #ffff00 !important;
+    border: 2px solid #ffff00 !important;
+    text-decoration: none !important;
+}
+
+/* 7. REFUERZO DE FOOTER (Nuevo) */
+body.high-contrast .main-footer,
+body.high-contrast .footer-bottom {
+    background-color: #000000 !important;
+    border-top: 2px solid #ffff00 !important;
+}
+
+body.high-contrast .footer-nav-links a {
+    color: #ffff00 !important;
+    text-decoration: underline !important;
+}
+
+/* Hover de botones y links */
+body.high-contrast button:hover,
+body.high-contrast .nav-btn:hover,
+body.high-contrast .btn-criterium-azul:hover,
+body.high-contrast .arrow-btn:hover {
+    background-color: #ffff00 !important;
+    color: #000 !important;
+}
+
+/* 8. Navegación y Logos */
+body.high-contrast .nav-btn, 
+body.high-contrast .zeta-control-btn span { 
+    color: #ffff00 !important; 
+    border: 1px solid #ffff00 !important; 
+}
+body.high-contrast .nav-indicator { background: #ffff00 !important; }
+body.high-contrast .nav-btn.active { background: #ffff00 !important; color: #000000 !important; }
+
+body.high-contrast .header-blur-bg { 
+    background: #000000 !important; 
+    border-bottom: 2px solid #ffff00 !important; 
+}
+body.high-contrast .header-nav { background: #000000 !important; border: 2px solid #ffff00 !important; }
+
+/* Inversión de iconos */
+body.high-contrast .footer-icon, 
+body.high-contrast .icons-grid-five img,
+body.high-contrast .fab-mailing-icon { 
+    filter: grayscale(1) invert(1) brightness(2) !important; 
+}
+
+body.high-contrast .logo-img { 
+    filter: brightness(0) invert(1) contrast(2) !important; 
+}
+
+/* --- BOTONES CRITÉRIUM --- */
+.apreciacion-buttons { display: flex; gap: 15px; flex-wrap: wrap; margin-top: 20px; }
+.btn-criterium-azul {
+    background-color: var(--primary-color);
+    color: white !important;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-decoration: none !important;
+    font-weight: 700;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.btn-criterium-azul:hover { background-color: var(--secondary-color); transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); }
+.apreciacion-buttons a:last-child { background-color: var(--vibrant-accent); color: var(--primary-color) !important; }
+/* ============================================================
+   REFUERZO FINAL DE MODALES (POPUPS) 
+   ============================================================ */
+
+/* 1. Ajuste del contenedor principal del Modal */
+.modal-backdrop .modal.modal-grande {
+    max-width: 900px !important;
+    width: 90% !important;
+    padding: 45px 35px !important; /* Espacio para que el contenido respire */
+    border-radius: 30px !important;
+    box-shadow: 0 25px 60px rgba(4, 57, 89, 0.4) !important;
+    border: none !important;
+    overflow-y: auto !important;
+}
+
+/* 2. Estilo del título dentro del modal */
+#modalTitle {
+    font-size: 1.8rem !important;
+    font-weight: 800 !important;
+    color: #043959 !important;
+    border-bottom: 4px solid #F2B872 !important; /* El color naranja vibrante */
+    display: inline-block !important;
+    margin-bottom: 25px !important;
+    padding-bottom: 5px !important;
+}
+
+/* 3. Estilo del cuerpo del texto */
+#modalBodyText {
+    line-height: 1.8 !important;
+    font-size: 1.05rem !important;
+    color: #333 !important; /* Gris oscuro elegante */
+}
+
+/* 4. Asegurar que en Modo Oscuro el texto cambie de color */
+body.dark-mode #modalBodyText {
+    color: #e0e0e0 !important;
+}
+
+/* 5. El botón de cerrar (la X) */
+.close-modal, .close-btn {
+    top: 20px !important;
+    right: 25px !important;
+    color: #888 !important;
+    font-size: 2.2rem !important;
+    transition: 0.3s !important;
+    opacity: 0.7 !important;
+}
+
+.close-modal:hover, .close-btn:hover {
+    color: #043959 !important;
+    transform: rotate(90deg) scale(1.1) !important;
+    opacity: 1 !important;
+}
+/* ============================================================
+   SOLUCIÓN FINAL: SCROLL INTERNO Y BORDES REDONDEADOS
+   ============================================================ */
+
+/* 1. Ajuste del modal para que respire y no corte el redondeado */
+.modal.modal-grande {
+    max-width: 900px !important;
+    width: 90% !important;
+    padding: 40px 50px 40px 40px !important; /* Más espacio a la derecha */
+    border-radius: 30px !important;
+    overflow-y: auto !important; /* El scroll ahora vive AQUÍ adentro */
+    overflow-x: hidden !important;
+    box-shadow: 0 25px 60px rgba(4, 57, 89, 0.4) !important;
+    position: relative !important;
+}
+
+/* 2. Estilo de la barra de scroll para que sea delgada y elegante */
+.modal.modal-grande::-webkit-scrollbar {
+    width: 10px !important;
+}
+
+.modal.modal-grande::-webkit-scrollbar-track {
+    background: transparent !important;
+    margin: 20px !important; /* Esto hace que el scroll no toque las esquinas */
+}
+
+.modal.modal-grande::-webkit-scrollbar-thumb {
+    background: rgba(4, 57, 89, 0.2) !important;
+    border-radius: 10px !important;
+    border: 2px solid #fff !important; /* Crea un efecto de separación */
+}
+
+.modal.modal-grande::-webkit-scrollbar-thumb:hover {
+    background: #F2B872 !important; /* Color naranja al pasar el mouse */
+}
+/* ============================================================
+   AJUSTE MAESTRO: TÍTULOS DE MODAL Y RECUADROS REBELDES
+   ============================================================ */
+
+/* --- 1. MODO OSCURO (🌙 DARK-MODE) --- */
+
+/* Forzar títulos de Modales (ID y clases específicas) */
+body.dark-mode #modalTitle, 
+body.dark-mode .modal h3, 
+body.dark-mode .modal-grande h3 {
+    color: #ffffff !important;
+}
+
+/* Recuadros de Apreciación Docente (Imagen 3) */
+body.dark-mode .acordeon-content div[style*="background:#fdfdfd"],
+body.dark-mode .acordeon-content div[style*="background:#ffffff"] {
+    background-color: #032539 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+}
+
+/* Tarjetas de Ediciones Anteriores (Imagen 4) */
+body.dark-mode .archive-item-card {
+    background-color: #032539 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Botón pequeño "Ver Boletín" dentro de las ediciones */
+body.dark-mode .archive-item-card div[style*="background: #f8f9fa"] {
+    background: #043959 !important;
+    color: #ffffff !important;
+}
+
+
+/* --- 2. ALTO CONTRASTE (◐ HIGH-CONTRAST) --- */
+
+/* Títulos de Modales en Amarillo Brillante */
+body.high-contrast #modalTitle, 
+body.high-contrast .modal h3, 
+body.high-contrast .modal-grande h3 {
+    color: #ffff00 !important;
+}
+
+/* Recuadros de Apreciación Docente y Ediciones en Negro/Amarillo */
+body.high-contrast .acordeon-content div[style*="background:#fdfdfd"],
+body.high-contrast .acordeon-content div[style*="background:#ffffff"],
+body.high-contrast .archive-item-card {
+    background-color: #000000 !important;
+    border: 2px solid #ffff00 !important;
+    color: #ffff00 !important;
+}
+
+/* Forzar que CUALQUIER texto dentro de esos recuadros sea amarillo */
+body.high-contrast .acordeon-content div *, 
+body.high-contrast .archive-item-card * {
+    color: #ffff00 !important;
+}
+
+/* Botón "Ver Boletín" en Alto Contraste */
+body.high-contrast .archive-item-card div[style*="background: #f8f9fa"] {
+    background: #000000 !important;
+    border: 1px solid #ffff00 !important;
+    color: #ffff00 !important;
+}
+/* --- ESTILOS DEL CARRETE CLARO (V3) --- */
+
+/* Scrollbar vertical para la cinta de miniaturas (Modo Claro) */
+.cinta-vertical-clara::-webkit-scrollbar {
+    width: 6px;
+}
+
+.cinta-vertical-clara::-webkit-scrollbar-track {
+    background: #fdfdfd;
+}
+
+.cinta-vertical-clara::-webkit-scrollbar-thumb {
+    background: #dddddd; /* Color gris suave */
+    border-radius: 10px;
+}
+
+.cinta-vertical-clara::-webkit-scrollbar-thumb:hover {
+    background: var(--vibrant-accent); /* Tu variable naranja */
+}
+
+/* Efecto hover en el visor principal */
+.carrete-homenaje-pro-claros #fotoGrandeHomenaje:hover {
+    filter: brightness(1.05);
+}
+
+/* --- AJUSTE RESPONSIVO MAESTRO (MÓVIL) --- */
+@media (max-width: 768px) {
+    /* El contenedor principal ya tiene wrap, así que el flex fluirá hacia abajo */
+    
+    .visor-principal {
+        height: 350px !important; /* Foto más pequeña en móvil */
+        width: 100% !important;
+        flex: 1 1 100% !important;
+    }
+    
+    .cinta-vertical-clara {
+        width: 100% !important;
+        flex: 1 1 100% !important;
+        flex-direction: row !important; /* CAMBIA A HORIZONTAL */
+        overflow-x: auto !important; /* Scroll horizontal en móvil */
+        overflow-y: hidden !important;
+        height: auto !important;
+        max-height: none !important;
+        padding: 5px 0 !important;
+    }
+    
+    .cinta-vertical-clara .mini-h {
+        width: 90px !important; /* Tamaño fijo horizontal */
+        height: 65px !important;
+    }
+}
+.poster-wrapper:hover {
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 0 25px 60px rgba(4, 57, 89, 0.25) !important;
+}
+
+.poster-wrapper:active {
+    transform: translateY(-2px) scale(0.99);
+}
+/* --- AJUSTE PARA PORTÁTILES Y PANTALLAS MEDIANAS --- */
+@media (max-width: 1400px) {
+    /* 1. Reducimos el logo un poco más para ganar aire */
+    .logo-img {
+        width: 220px !important;
+    }
+
+    /* 2. Ajustamos el contenedor del logo para que ocupe menos ancho real */
+    .header-logo-fixed {
+        width: 250px !important;
+        padding-left: 1rem !important;
+    }
+
+    /* 3. Reducimos el tamaño de la letra y el espacio del menú */
+    .nav-btn {
+        font-size: 0.72rem !important;
+        padding: 6px 8px !important;
+        gap: 3px !important;
+    }
+
+    .header-nav {
+        gap: 4px !important;
+        padding: 6px 12px !important;
+    }
+
+    /* 4. Alejamos el menú un poco más del borde derecho */
+    .nav-container {
+        padding-right: 30px !important;
+    }
+}
+
+/* --- SOLUCIÓN DE EMERGENCIA: SI SIGUEN CHOCANDO --- */
+@media (max-width: 1200px) {
+    /* Si la pantalla es muy pequeña para estar en una línea, 
+       bajamos el menú debajo del logo para que nada se tape */
+    .nav-container {
+        justify-content: center !important;
+        top: 90px !important; /* Lo bajamos un poco */
+        padding-right: 0 !important;
+        width: 100% !important;
+    }
+
+    .header-logo-fixed {
+        width: 100% !important;
+        justify-content: center !important;
+        padding-left: 0 !important;
+    }
+    
+    .header-blur-bg {
+        height: 160px !important; /* Aumentamos el fondo blanco para cubrir el menú abajo */
+    }
+
+    main {
+        padding-top: 180px !important; /* Bajamos el contenido para que no lo tape el menú nuevo */
+    }
+}
+@media (max-width: 1400px) {
+    /* Ajustamos el botón flotante para que no tape el calendario */
+    .contact-fab {
+        right: 15px !important;  /* Lo pegamos más al borde derecho */
+        bottom: 15px !important; /* Lo bajamos un poco más */
+        width: 80px !important;   /* Lo hacemos un poco más pequeño (antes 110px) */
+        height: 80px !important;
+    }
+
+    /* Ajustamos la sombra para el nuevo tamaño */
+    .fab-mailing-icon {
+        filter: drop-shadow(0 5px 10px rgba(4, 57, 89, 0.2)) !important;
+    }
+}
+/* ============================================================
+   SOLUCIÓN MÓVIL DEFINITIVA: TEXTO ARRIBA / FOTOS ABAJO
+   ============================================================ */
+
+@media (max-width: 768px) {
+    /* 1. SECCIÓN HOMENAJE: Forzamos el flujo vertical absoluto */
+    .section#evaluacion .magazine-grid {
+        display: block !important; /* Rompe la cuadrícula de dos columnas */
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* 2. EL TEXTO toma todo el ancho superior */
+    .section#evaluacion .magazine-text {
+        width: 100% !important;
+        margin-bottom: 25px !important; /* Espacio antes de que empiecen las fotos */
+        padding: 0 5px !important; /* Pequeño margen interno para el texto */
+        text-align: justify; /* Mantenemos el justificado para elegancia */
+    }
+
+    /* 3. EL CONTENEDOR DE FOTOS toma todo el ancho inferior */
+    .section#evaluacion .magazine-grid > div:last-child {
+        display: flex !important; /* El contenedor interno de fotos sigue siendo flex */
+        flex-direction: column !important; /* Fotos en una columna */
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        gap: 15px !important;
+    }
+
+    /* 4. AJUSTE DEL VISOR DE LA FOTO GRANDE */
+    /* Buscamos el div con la altura inline de escritorio y la reducimos */
+    .section#evaluacion div[style*="height: 420px"] {
+        height: 280px !important; /* Altura ideal para la foto principal en móvil */
+        width: 100% !important;
+        margin-bottom: 10px !important;
+    }
+
+    /* 5. LA CINTA DE MINIATURAS: De columna Vertical a Fila Horizontal */
+    .cinta-v {
+        flex-direction: row !important; /* Una mini al lado de la otra */
+        overflow-x: auto !important;   /* Permite scroll horizontal */
+        overflow-y: hidden !important;
+        width: 100% !important;
+        height: 85px !important; /* Altura fija para la fila */
+        gap: 10px !important;
+        padding: 5px 0 !important;
+        background: #fff;
+        border-radius: 10px;
+    }
+
+    .mini-h {
+        width: 100px !important; /* Más anchas para facilitar el toque */
+        height: 70px !important;
+        flex-shrink: 0 !important; /* Evita que se aplasten */
+    }
+}
+#diseno {
+    display: none !important;
+}
+@media (max-width: 768px) {
+    /* Hacemos que el contenedor del menú ocupe más espacio y se vea limpio */
+    .nav-container {
+        width: 100% !important;
+        padding: 80px 20px !important; /* Más espacio para que no choque con el logo */
+    }
+
+    .header-nav {
+        gap: 15px !important; /* Espacio entre botones */
+        padding: 20px !important;
+    }
+
+    .nav-btn {
+        font-size: 1.1rem !important; /* Letra más grande para tocar con el dedo */
+        padding: 12px 15px !important;
+        border-bottom: 1px solid rgba(0,0,0,0.05); /* Separación sutil */
+        justify-content: flex-start !important;
+    }
+
+    /* Los controles de accesibilidad (A+, A-, etc.) en una fila aparte */
+    .zeta-controls {
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(0,0,0,0.1);
+        justify-content: space-around !important;
+        width: 100%;
+        border-left: none !important;
+    }
+}
+/* Esto devuelve el estilo al PC que acabamos de quitar del HTML */
+.grid-homenaje {
+    display: grid !important;
+    grid-template-columns: 40% 60% !important;
+    gap: 30px !important;
+    align-items: start !important;
+}@media (max-width: 768px) {
+    .grid-homenaje {
+        display: flex !important;
+        flex-direction: column !important; /* Fuerza el orden: Texto arriba / Fotos abajo */
+    }
+
+    .grid-homenaje .magazine-text {
+        width: 100% !important; /* El texto ahora sí ocupa todo el ancho */
+        margin-bottom: 25px !important;
+    }
+
+    /* El contenedor de las fotos también se ajusta al ancho total */
+    .grid-homenaje > div:last-child {
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        grid-template-columns: 1fr !important; /* Anula las 2 columnas internas de fotos */
+    }
+
+    /* La cinta de fotos ahora es horizontal y fácil de deslizar */
+    .cinta-v {
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        height: 85px !important;
+        width: 100% !important;
+        display: flex !important;
+    }
+}
+/* ============================================================
+   SOLUCIÓN RADICAL: MAXIMIZAR CONTENIDO EN MÓVIL
+   ============================================================ */
+
+@media (max-width: 768px) {
+    /* 1. Forzamos que la caja blanca ocupe casi todo el ancho */
+    .modal.modal-grande {
+        width: 95% !important; /* Casi de borde a borde */
+        max-width: none !important;
+        padding: 50px 10px 10px 10px !important; /* Reducimos márgenes internos */
+        margin: 10px auto !important;
+        transform: scale(1) !important; /* Eliminamos el achicamiento del 0.9 */
+    }
+
+    /* 2. El título: más pequeño para que no robe espacio vertical */
+    #modalTitle {
+        font-size: 1.1rem !important;
+        margin-bottom: 15px !important;
+        width: 85% !important; /* Para que no choque con la X */
+    }
+
+    /* 3. EL CONTENIDO: Aquí es donde ganamos la legibilidad */
+    #modalBodyText {
+        padding: 0 !important;
+        width: 100% !important;
+    }
+
+    /* 4. EL IFRAME (La infografía): Forzamos el tamaño máximo */
+    #modalBodyText iframe {
+        width: 100% !important;
+        height: 70vh !important; /* Que ocupe el 70% del alto de la pantalla del celular */
+        border-radius: 5px !important;
+    }
+    /* 5. Aseguramos que el fondo del modal no empuje la caja hacia adentro */
+    .modal-backdrop {
+        padding: 5px !important;
+    }
+}
